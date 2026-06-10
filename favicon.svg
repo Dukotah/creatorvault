@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="CreatorVault">
+  <!-- Vault door (rounded square) + key motif. Copper #bf6b3c + ink #14181f, transparent bg. -->
+  <!-- Vault body -->
+  <rect x="8" y="8" width="48" height="48" rx="12" fill="#bf6b3c"/>
+  <!-- Inner ink panel -->
+  <rect x="14" y="14" width="36" height="36" rx="8" fill="#14181f"/>
+  <!-- Key: bow (ring) -->
+  <circle cx="27" cy="27" r="7" fill="none" stroke="#faf8f4" stroke-width="4"/>
+  <!-- Key: shaft -->
+  <path d="M31.8 31.8 41 41" stroke="#faf8f4" stroke-width="4" stroke-linecap="round"/>
+  <!-- Key: teeth -->
+  <path d="M41 41 41 46 M37 37 37 41" stroke="#faf8f4" stroke-width="4" stroke-linecap="round"/>
+</svg>

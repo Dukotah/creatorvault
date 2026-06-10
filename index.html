@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CreatorVault — license key generator & creator fee calculator</title>
+<meta name="description" content="Generate cryptographically secure software license keys (configurable format, bulk, copy/download) and compare what you keep per sale across Gumroad, Lemon Squeezy, Payhip and more. Free, runs entirely in your browser.">
+<link rel="canonical" href="https://dukotah.github.io/creatorvault/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CreatorVault">
+<meta property="og:title" content="CreatorVault — license keys & creator fee calculator">
+<meta property="og:description" content="Generate secure software license keys with the Web Crypto API, and see what your digital-product platform really costs you. Free, 100% in your browser.">
+<meta property="og:url" content="https://dukotah.github.io/creatorvault/">
+<meta property="og:image" content="https://dukotah.github.io/creatorvault/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#faf8f4">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"CreatorVault","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free client-side tools for digital-product creators: a cryptographically secure license-key generator (Web Crypto API) and a platform fee comparison calculator. Everything runs in your browser.","publisher":{"@type":"Organization","name":"Copper Bay Labs","url":"https://copperbaytech.com"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are the license keys actually secure?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every character is drawn from the Web Crypto API (crypto.getRandomValues), a cryptographically secure random source built into modern browsers — not the predictable Math.random(). We use rejection sampling so each character is uniformly distributed with no modulo bias. The generator also shows the bits of entropy per key so you can size keys for your threat model."}},{"@type":"Question","name":"Is anything uploaded or stored?","acceptedAnswer":{"@type":"Answer","text":"No. CreatorVault has no backend. Your key settings, the keys themselves, and every number you type into the fee calculator stay in this browser tab. Nothing is sent over the network, logged, or saved to a server. Generated keys live only in page memory until you copy or download them, and they disappear when you close the tab. You can even load the page once and run it offline."}},{"@type":"Question","name":"How should I use these keys in my product?","acceptedAnswer":{"@type":"Answer","text":"These are random identifiers, not self-validating or signed keys. To use them, store the keys you issue (for example in your database) and check incoming keys against that list when a customer activates. For offline or signed licensing you'd pair a key with a server-side signature or a license file — that's part of the paid licensing API on our roadmap. Treat a generated key as a secret: issue each one once, and revoke it if it leaks."}},{"@type":"Question","name":"Where do the platform fees come from?","acceptedAnswer":{"@type":"Answer","text":"The defaults are our best reading of each platform's publicly listed pricing at build time, and they're clearly labeled estimates you can edit. Real-world payouts also depend on payment-processing fees, currency conversion, VAT/sales-tax handling, your plan tier, refunds, and chargebacks. Always verify the current rate on each platform's own pricing page before making a decision — this calculator is a planning aid, not financial advice."}},{"@type":"Question","name":"What's the CreatorVault (planned) column?","acceptedAnswer":{"@type":"Answer","text":"It's an illustrative target for a low-fee hosted checkout we're building, not a live product you can sign up for today. It's marked planned in the table so the comparison is honest. When the paid tier ships — hosted checkout, secure file delivery, and a license issuance/validation API — this column will reflect real, published pricing."}}]}
+</script>
+<link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="masthead" role="banner">
+  <div class="wrap hdr-bar">
+    <a class="brand" href="./" aria-label="CreatorVault — go to homepage">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+        <rect x="8" y="8" width="48" height="48" rx="12" fill="#bf6b3c"/>
+        <rect x="14" y="14" width="36" height="36" rx="8" fill="#14181f"/>
+        <circle cx="27" cy="27" r="7" fill="none" stroke="#faf8f4" stroke-width="4"/>
+        <path d="M31.8 31.8 41 41" stroke="#faf8f4" stroke-width="4" stroke-linecap="round"/>
+        <path d="M41 41 41 46 M37 37 37 41" stroke="#faf8f4" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <span class="wordmark">CreatorVault</span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="about.html">How it works</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Tools for digital-product creators</p>
+      <h1>Generate license keys. See what your platform really costs you.</h1>
+      <p class="lede">Two free tools, no signup, nothing uploaded. Mint <strong>cryptographically secure license keys</strong> for your software, then check <strong>what you actually keep per sale</strong> across the platforms creators use. Everything runs in your browser.</p>
+      <div class="disclaimer-strip" role="note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        <span><strong>This is a tool, not professional, financial, or legal advice.</strong> Fee figures are editable estimates — verify each platform's current rates before deciding.</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="toolswitch">
+    <div class="toolswitch-inner" role="tablist" aria-label="Choose a tool">
+      <button type="button" class="tab-btn" id="tab-generator" role="tab" aria-selected="true" aria-controls="panel-generator" tabindex="0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m10.85 12.15 7.15-7.15 2 2-1.5 1.5 1.5 1.5-2 2-1.5-1.5-1.65 1.65"/></svg>
+        License key generator
+      </button>
+      <button type="button" class="tab-btn" id="tab-calculator" role="tab" aria-selected="false" aria-controls="panel-calculator" tabindex="-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h0M12 11h0M15 11h0M9 15h0M12 15h0M15 15v2"/></svg>
+        Fee calculator
+      </button>
+    </div>
+  </div>
+
+  <div id="kg-status" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="calc-status" class="sr-only" role="status" aria-live="polite"></div>
+
+  <!-- ================= License key generator ================= -->
+  <section class="toolpanel" id="panel-generator" role="tabpanel" aria-labelledby="tab-generator" tabindex="0">
+    <div class="wrap">
+      <form id="keygen-form" class="tool-card" novalidate>
+        <div class="tool-head">
+          <h2>License key generator</h2>
+          <p>Configure the format, then generate one key or up to 1,000 at once. Randomness comes from the <strong>Web Crypto API</strong> (<code>crypto.getRandomValues</code>) — a cryptographically secure source, never <code>Math.random</code>.</p>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="kg-prefix">Prefix <span class="hint">(optional)</span></label>
+            <input type="text" id="kg-prefix" class="mono" maxlength="16" placeholder="e.g. PRO" autocomplete="off" spellcheck="false" aria-describedby="kg-prefix-hint">
+            <p class="hint" id="kg-prefix-hint">Letters, numbers, underscore. Up to 16 chars.</p>
+          </div>
+          <div class="field">
+            <label for="kg-segments">Segments</label>
+            <input type="number" id="kg-segments" min="1" max="12" step="1" value="4" inputmode="numeric">
+            <p class="hint">Blocks per key (1–12).</p>
+          </div>
+          <div class="field">
+            <label for="kg-seglen">Segment length</label>
+            <input type="number" id="kg-seglen" min="2" max="24" step="1" value="5" inputmode="numeric">
+            <p class="hint">Characters per block (2–24).</p>
+          </div>
+          <div class="field">
+            <label for="kg-charset">Character set</label>
+            <select id="kg-charset">
+              <option value="crockford">Crockford base32 (no I, L, O, U)</option>
+              <option value="alnumUpper">A–Z + 0–9 (uppercase)</option>
+              <option value="alnumMixed">A–Z + a–z + 0–9 (mixed case)</option>
+              <option value="hexUpper">Hex (0–9 A–F)</option>
+              <option value="digits">Digits only (0–9)</option>
+              <option value="letters">Letters only (A–Z)</option>
+            </select>
+            <p class="hint">Crockford avoids look-alike characters.</p>
+          </div>
+          <div class="field">
+            <label for="kg-separator">Separator</label>
+            <select id="kg-separator">
+              <option value="dash">Dash &nbsp;( - )</option>
+              <option value="dot">Dot &nbsp;( . )</option>
+              <option value="space">Space</option>
+              <option value="none">None</option>
+            </select>
+            <p class="hint">Character between segments.</p>
+          </div>
+          <div class="field">
+            <label for="kg-count">How many</label>
+            <input type="number" id="kg-count" min="1" max="1000" step="1" value="1" inputmode="numeric">
+            <p class="hint">Generate in bulk, up to 1,000.</p>
+          </div>
+        </div>
+
+        <div class="check-row" style="margin-top:16px">
+          <input type="checkbox" id="kg-prefix-sep" checked>
+          <label for="kg-prefix-sep">Join the prefix with a separator
+            <span class="check-hint">e.g. <code style="font-family:var(--mono)">PRO-XXXXX-…</code> instead of <code style="font-family:var(--mono)">PROXXXXX…</code></span>
+          </label>
+        </div>
+
+        <div class="preview-line" id="kg-preview" aria-live="polite" aria-label="Format preview"></div>
+
+        <p class="form-error" id="kg-error" role="alert"></p>
+
+        <div class="keytool-actions">
+          <button type="submit" class="btn primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M3 12h18"/></svg>
+            Generate keys
+          </button>
+          <button type="button" class="btn ghost" id="kg-reset">Reset</button>
+        </div>
+
+        <div class="trust-wrap">
+          <p class="trust-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            <span><strong>100% in your browser.</strong> Keys are generated locally and never uploaded or stored.</span>
+          </p>
+        </div>
+      </form>
+
+      <div class="tool-card keys-out" id="kg-output" hidden>
+        <div class="keys-head">
+          <h3>Your license keys</h3>
+          <span class="keys-count" id="kg-keys-count">0 keys</span>
+          <div class="keys-tools">
+            <button type="button" class="copy-button" id="kg-copy-all" data-label="Copy all">Copy all</button>
+            <button type="button" class="copy-button" id="kg-download-txt" data-label="Download .txt">Download .txt</button>
+            <button type="button" class="copy-button" id="kg-download-csv" data-label="Download .csv">Download .csv</button>
+          </div>
+        </div>
+        <ul class="keys-list" id="kg-keys" aria-label="Generated license keys"></ul>
+        <div class="entropy-note" id="kg-entropy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Fee calculator ================= -->
+  <section class="toolpanel" id="panel-calculator" role="tabpanel" aria-labelledby="tab-calculator" tabindex="0" hidden>
+    <div class="wrap wide">
+      <form id="calc-form" class="tool-card" novalidate>
+        <div class="tool-head">
+          <h2>Creator fee comparison calculator</h2>
+          <p>Enter your product price and monthly sales to see what you keep per platform — and the annual difference. Fee assumptions are editable below the table.</p>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="calc-price">Product price</label>
+            <span class="input-prefix">
+              <span class="pfx" aria-hidden="true">$</span>
+              <input type="number" id="calc-price" min="0" step="0.01" placeholder="29.00" inputmode="decimal">
+            </span>
+            <p class="hint">Price per sale, in USD.</p>
+          </div>
+          <div class="field">
+            <label for="calc-units">Units sold per month</label>
+            <input type="number" id="calc-units" min="0" step="1" placeholder="100" inputmode="numeric">
+            <p class="hint">How many you sell in a typical month.</p>
+          </div>
+        </div>
+
+        <p class="form-error" id="calc-error" role="alert"></p>
+
+        <div class="keytool-actions">
+          <button type="submit" class="btn primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            Compare platforms
+          </button>
+          <button type="button" class="btn" id="calc-example">Try an example</button>
+        </div>
+      </form>
+
+      <div class="tool-card" id="calc-output" hidden>
+        <div class="tool-head">
+          <h3 style="font-family:'Fraunces',serif;font-size:22px;margin:0">What you keep, per platform</h3>
+        </div>
+
+        <div class="calc-summary" id="calc-summary"></div>
+
+        <div class="tbl-wrap">
+          <table class="compare">
+            <thead>
+              <tr>
+                <th scope="col">Platform</th>
+                <th scope="col">Fee / sale</th>
+                <th scope="col">You keep / sale</th>
+                <th scope="col">You keep / month</th>
+                <th scope="col">You keep / year</th>
+              </tr>
+            </thead>
+            <tbody id="calc-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="calc-note" role="note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.7 3.86a2 2 0 0 0-3.42 0Z"/></svg>
+          <span><strong>Fees are estimates — verify current rates.</strong> Real payouts also depend on payment-processing fees, currency conversion, EU/UK VAT and sales tax handling, plan tier, refunds, and chargebacks. The “CreatorVault (planned)” row is an illustrative target for an unreleased product, not a live offer. <span class="rates-vintage">Default rates as of June 2026 — confirm each platform's current pricing.</span></span>
+        </div>
+
+        <details class="assumptions">
+          <summary>Edit the fee assumptions</summary>
+          <div class="assump-body">
+            <p class="hint" style="margin-bottom:10px">Adjust any platform's percentage and per-sale flat fee to match your plan or current published rates. Changes update the table instantly and stay in your browser.</p>
+            <div class="tbl-wrap" style="box-shadow:none;margin-top:0">
+              <table class="assump-table">
+                <thead>
+                  <tr><th scope="col">Platform</th><th scope="col">% fee</th><th scope="col">Flat fee</th><th scope="col">Assumption</th></tr>
+                </thead>
+                <tbody id="assump-tbody"></tbody>
+              </table>
+            </div>
+            <div class="assump-actions">
+              <button type="button" class="copy-button" id="assump-reset" data-label="Reset to defaults">Reset to defaults</button>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Marketing / explanatory sections ================= -->
+  <section class="detect">
+    <div class="wrap">
+      <p class="eyebrow">What's inside</p>
+      <h2 class="detect-title">Two tools every digital seller needs</h2>
+      <p class="detect-sub">Built to the same standard as the rest of the Copper Bay Labs suite: fast, private, and free.</p>
+      <ul class="detect-grid" style="list-style:none;padding:0">
+        <li class="feature"><span class="feat-icon" aria-hidden="true">key</span><div><h3>Secure key generation</h3><p>Keys are minted with <code>crypto.getRandomValues</code>, with rejection sampling so there's no modulo bias.</p></div></li>
+        <li class="feature"><span class="feat-icon" aria-hidden="true">fmt</span><div><h3>Your exact format</h3><p>Set prefix, segment count and length, separator, and charset — including Crockford base32.</p></div></li>
+        <li class="feature"><span class="feat-icon" aria-hidden="true">bulk</span><div><h3>Single or bulk</h3><p>Generate one key or up to 1,000, then copy individually, copy all, or download .txt / .csv.</p></div></li>
+        <li class="feature"><span class="feat-icon" aria-hidden="true">bits</span><div><h3>Entropy at a glance</h3><p>Every batch shows the bits of entropy per key so you can judge guess-resistance.</p></div></li>
+        <li class="feature"><span class="feat-icon" aria-hidden="true">%</span><div><h3>Honest fee math</h3><p>See what you keep per sale, per month, and per year across the platforms creators actually use.</p></div></li>
+        <li class="feature"><span class="feat-icon" aria-hidden="true">edit</span><div><h3>Editable assumptions</h3><p>Fees are clearly labeled estimates you can adjust to your plan or each platform's current rates.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2 class="steps-title">Private by design</h2>
+      <ol class="step-grid" style="list-style:none;padding:0">
+        <li class="step">
+          <span class="step-num" aria-hidden="true">1</span>
+          <h3>Pick a tool</h3>
+          <p>Switch between the license-key generator and the fee calculator with the tabs above.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">2</span>
+          <h3>Configure &amp; run</h3>
+          <p>Set your format or enter your numbers. Everything is computed locally in JavaScript.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">3</span>
+          <h3>Copy or download</h3>
+          <p>Take your keys as text or CSV, or read your platform breakdown. Nothing is uploaded.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="suite">
+    <div class="wrap">
+      <p class="eyebrow">The Copper Bay Labs suite</p>
+      <h2 class="suite-title" style="text-align:center;font-size:clamp(24px,3.6vw,34px);margin:0 auto 10px;max-width:600px">Free, browser-based tools for indie builders</h2>
+      <p class="suite-sub" style="text-align:center;color:var(--muted);max-width:600px;margin:0 auto 30px">Ship safer and sell smarter with the rest of the suite from <a href="https://copperbaytech.com" target="_blank" rel="noopener noreferrer">Copper Bay Labs</a>.</p>
+      <div class="suite-band">
+        <a class="suite-card" href="https://dukotah.github.io/shipsafe/" target="_blank" rel="noopener noreferrer">
+          <span class="sc-name">ShipSafe</span>
+          <p class="sc-desc">Will you get <strong>sued</strong>? Checks your site for ADA accessibility and privacy-law exposure.</p>
+          <span class="sc-go">Open ShipSafe</span>
+        </a>
+        <a class="suite-card" href="https://dukotah.github.io/leakcheck/" target="_blank" rel="noopener noreferrer">
+          <span class="sc-name">LeakCheck</span>
+          <p class="sc-desc">Did you leak a secret in your <strong>code</strong>? Finds exposed API keys and tokens before you commit.</p>
+          <span class="sc-go">Open LeakCheck</span>
+        </a>
+        <a class="suite-card" href="https://dukotah.github.io/exposurecheck/" target="_blank" rel="noopener noreferrer">
+          <span class="sc-name">ExposureCheck</span>
+          <p class="sc-desc">Is your <strong>live site</strong> leaking? Scans a running URL for exposed files and headers.</p>
+          <span class="sc-go">Open ExposureCheck</span>
+        </a>
+        <a class="suite-card" href="https://dukotah.github.io/depcheck/" target="_blank" rel="noopener noreferrer">
+          <span class="sc-name">DepCheck</span>
+          <p class="sc-desc">Are your <strong>dependencies</strong> risky? Flags vulnerable and abandoned npm packages.</p>
+          <span class="sc-go">Open DepCheck</span>
+        </a>
+        <div class="suite-card is-current">
+          <span class="sc-name">CreatorVault</span>
+          <p class="sc-desc">Generate license keys and compare creator-platform fees. You're here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="wrap narrow">
+      <p class="eyebrow" style="text-align:center">FAQ</p>
+      <h2 class="faq-title">Questions, answered</h2>
+
+      <details>
+        <summary>Are the license keys actually secure?</summary>
+        <p>Yes. Every character is drawn from the <strong>Web Crypto API</strong> (<code>crypto.getRandomValues</code>), a cryptographically secure random source built into modern browsers — not the predictable <code>Math.random()</code>. We use rejection sampling so each character is uniformly distributed with no modulo bias. The generator also shows the <strong>bits of entropy</strong> per key so you can size keys for your threat model.</p>
+      </details>
+
+      <details>
+        <summary>Is anything uploaded or stored?</summary>
+        <p>No. CreatorVault has <strong>no backend</strong>. Your key settings, the keys themselves, and every number you type into the fee calculator stay in this browser tab. Nothing is sent over the network, logged, or saved to a server. Generated keys live only in page memory until you copy or download them, and they disappear when you close the tab. You can even load the page once and run it offline.</p>
+      </details>
+
+      <details>
+        <summary>How should I use these keys in my product?</summary>
+        <p>These are <strong>random identifiers</strong>, not self-validating or signed keys. To use them, store the keys you issue (for example in your database) and check incoming keys against that list when a customer activates. For offline or signed licensing you'd pair a key with a server-side signature or a license file — that's part of the paid licensing API on our roadmap. Treat a generated key as a secret: issue each one once, and revoke it if it leaks.</p>
+      </details>
+
+      <details>
+        <summary>Where do the platform fees come from?</summary>
+        <p>The defaults are our best reading of each platform's <strong>publicly listed pricing</strong> at build time, and they're <strong>clearly labeled estimates you can edit</strong>. Real-world payouts also depend on payment-processing fees, currency conversion, VAT/sales-tax handling, your plan tier, refunds, and chargebacks. <strong>Always verify the current rate</strong> on each platform's own pricing page before making a decision — this calculator is a planning aid, not financial advice.</p>
+      </details>
+
+      <details>
+        <summary>What's the "CreatorVault (planned)" column?</summary>
+        <p>It's an <strong>illustrative target</strong> for a low-fee hosted checkout we're building, not a live product you can sign up for today. It's marked “planned” in the table so the comparison is honest. When the paid tier ships — hosted checkout, secure file delivery, and a license issuance/validation API — this column will reflect real, published pricing.</p>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="wrap foot">
+    <div>
+      <a class="brand small" href="./" aria-label="CreatorVault — homepage">
+        <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="8" y="8" width="48" height="48" rx="12" fill="#bf6b3c"/>
+          <rect x="14" y="14" width="36" height="36" rx="8" fill="#1d222b"/>
+          <circle cx="27" cy="27" r="7" fill="none" stroke="#faf8f4" stroke-width="4"/>
+          <path d="M31.8 31.8 41 41" stroke="#faf8f4" stroke-width="4" stroke-linecap="round"/>
+          <path d="M41 41 41 46 M37 37 37 41" stroke="#faf8f4" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <span class="wordmark">CreatorVault</span>
+      </a>
+      <p class="fine">A tool, not professional, financial, or legal advice. Fee figures are editable estimates — verify current rates.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer navigation">
+      <a href="about.html">How it works</a>
+      <a href="https://dukotah.github.io/shipsafe/" target="_blank" rel="noopener noreferrer">ShipSafe</a>
+      <a href="https://dukotah.github.io/leakcheck/" target="_blank" rel="noopener noreferrer">LeakCheck</a>
+      <a href="https://dukotah.github.io/exposurecheck/" target="_blank" rel="noopener noreferrer">ExposureCheck</a>
+      <a href="https://dukotah.github.io/depcheck/" target="_blank" rel="noopener noreferrer">DepCheck</a>
+      <a href="https://copperbaytech.com" target="_blank" rel="noopener noreferrer">Sell with lower fees &rarr;</a>
+    </nav>
+  </div>
+  <div class="wrap">
+    <p class="madeby">A <a href="https://copperbaytech.com" target="_blank" rel="noopener noreferrer">Copper Bay Labs</a> product.
+      <span class="disc">CreatorVault is a free tool — not professional, financial, or legal advice.</span>
+    </p>
+  </div>
+</footer>
+
+<script src="app.js?v=1"></script>
+</body>
+</html>
